@@ -2,19 +2,30 @@ package com.example.mobilele.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "brands")
 public class Brand extends BaseEntity {
-
+    @Column(unique = true, nullable = false)
     private String name;
 
+    @OneToMany(mappedBy = "brand")
+    private Set<Model> models;
 
     public Brand() {
     }
 
-    @Column(unique = true, nullable = false)
+    public Set<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(Set<Model> models) {
+        this.models = models;
+    }
+
     public String getName() {
         return name;
     }
