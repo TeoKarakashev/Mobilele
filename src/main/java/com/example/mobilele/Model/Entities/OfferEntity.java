@@ -1,60 +1,54 @@
-package com.example.mobilele.Entities;
+package com.example.mobilele.Model.Entities;
 
-import com.example.mobilele.EntitiesEnums.Engine;
-import com.example.mobilele.EntitiesEnums.Transmission;
+import com.example.mobilele.Model.Enums.Engine;
+import com.example.mobilele.Model.Enums.Transmission;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "offers")
-public class Offer extends BaseEntity {
+public class OfferEntity extends BaseEntity {
+
     @Column
     private String description;
-
     @Enumerated(EnumType.STRING)
     private Engine engine;
-
     @Column(name = "image_url")
     private String imageUrl;
-
     @Column
     private int mileage;
-
     @Column
     private BigDecimal price;
-
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
     private int year;
 
+    // @ManyToOne
+    // @JoinColumn(name = "seller_id")
+    // private UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "model_id")
-    private Model model;
+    private ModelEntity modelEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private User user;
-
-    public Offer() {
+    public OfferEntity() {
     }
 
 
-    public User getUser() {
-        return user;
+    //  public UserEntity getUser() {
+    //  return userEntity;
+    //  }
+
+    // public void setUser(UserEntity userEntity) {
+    //    this.userEntity = userEntity;
+    //  }
+
+    public ModelEntity getModel() {
+        return modelEntity;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
+    public void setModel(ModelEntity modelEntity) {
+        this.modelEntity = modelEntity;
     }
 
 

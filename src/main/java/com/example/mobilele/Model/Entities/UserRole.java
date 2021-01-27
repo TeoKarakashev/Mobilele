@@ -1,9 +1,8 @@
-package com.example.mobilele.Entities;
+package com.example.mobilele.Model.Entities;
 
-import com.example.mobilele.EntitiesEnums.Role;
+import com.example.mobilele.Model.Enums.Role;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_roles")

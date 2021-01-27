@@ -1,13 +1,14 @@
-package com.example.mobilele.Entities;
+package com.example.mobilele.Model.Entities;
 
-import com.example.mobilele.EntitiesEnums.Category;
+import com.example.mobilele.Model.Enums.Category;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "models")
-public class Model extends BaseEntity {
+public class ModelEntity extends BaseEntity {
     @Column(nullable = false)
     private String name;
     @Enumerated(EnumType.STRING)
@@ -17,32 +18,32 @@ public class Model extends BaseEntity {
     @Column
     private int startYear;
     @Column
-    private int endYear;
+    private Integer endYear;
     @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
-    @OneToMany(mappedBy = "model")
-    private Set<Offer> offers;
+    private BrandEntity brandEntity;
 
-    public Model() {
+    @OneToMany(mappedBy = "modelEntity")
+    private Set<OfferEntity> offerEntities;
+
+    public ModelEntity() {
     }
 
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public Set<OfferEntity> getOffers() {
+        return offerEntities;
     }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setOffers(Set<OfferEntity> offerEntities) {
+        this.offerEntities = offerEntities;
     }
 
 
-    public Brand getBrand() {
-        return brand;
+    public BrandEntity getBrand() {
+        return brandEntity;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setBrand(BrandEntity brandEntity) {
+        this.brandEntity = brandEntity;
     }
 
 
@@ -82,11 +83,11 @@ public class Model extends BaseEntity {
     }
 
 
-    public int getEndYear() {
+    public Integer getEndYear() {
         return endYear;
     }
 
-    public void setEndYear(int endYear) {
+    public void setEndYear(Integer endYear) {
         this.endYear = endYear;
     }
 

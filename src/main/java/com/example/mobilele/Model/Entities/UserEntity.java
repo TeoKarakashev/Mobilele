@@ -1,4 +1,4 @@
-package com.example.mobilele.Entities;
+package com.example.mobilele.Model.Entities;
 
 
 import javax.persistence.*;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class UserEntity extends BaseEntity {
     @Column(unique = true)
     private String username;
 
@@ -29,19 +29,19 @@ public class User extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Offer> offers;
+  //  @OneToMany(mappedBy = "userEntity")
+  //  private Set<OfferEntity> offerEntities;
 
-    public User() {
+    public UserEntity() {
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
-    }
+  // public Set<OfferEntity> getOffers() {
+    //    return offerEntities;
+  //  }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
-    }
+   // public void setOffers(Set<OfferEntity> offerEntities) {
+    //    this.offerEntities = offerEntities;
+   // }
 
 
 

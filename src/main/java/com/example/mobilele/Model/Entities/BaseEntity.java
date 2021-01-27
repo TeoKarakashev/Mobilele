@@ -1,6 +1,7 @@
-package com.example.mobilele.Entities;
+package com.example.mobilele.Model.Entities;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -8,8 +9,8 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDateTime created;
-    private LocalDateTime modified;
+    private Instant created;
+    private Instant modified;
 
     public long getId() {
         return id;
@@ -20,20 +21,20 @@ public abstract class BaseEntity {
     }
 
     @Column(nullable = false)
-    public LocalDateTime getCreated() {
+    public Instant getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 
     @Column(nullable = false)
-    public LocalDateTime getModified() {
+    public Instant getModified() {
         return modified;
     }
 
-    public void setModified(LocalDateTime modified) {
+    public void setModified(Instant modified) {
         this.modified = modified;
     }
 }
