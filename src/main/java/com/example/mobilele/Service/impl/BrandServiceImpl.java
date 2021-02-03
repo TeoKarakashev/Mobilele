@@ -5,6 +5,8 @@ import com.example.mobilele.Model.Entities.ModelEntity;
 import com.example.mobilele.Model.view.BrandViewModel;
 import com.example.mobilele.Model.view.ModelViewModel;
 import com.example.mobilele.Service.BrandService;
+import com.example.mobilele.repositories.BrandRepository;
+import com.example.mobilele.repositories.ModelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
