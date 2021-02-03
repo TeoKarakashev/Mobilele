@@ -33,7 +33,7 @@ public class DbInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         //initializeModelsAndBrands();
-       // initailzeOffer(modelRepository.getOne(1L));
+        // initailzeOffer(modelRepository.getOne(1L));
 
     }
 
@@ -53,7 +53,7 @@ public class DbInit implements CommandLineRunner {
     }
 
 
-    private void initializeModelsAndBrands(){
+    private void initializeModelsAndBrands() {
         BrandEntity fordBrandEntity = new BrandEntity();
         fordBrandEntity.setName("Ford");
         fordBrandEntity.setCreated(Instant.now());
@@ -66,7 +66,7 @@ public class DbInit implements CommandLineRunner {
         brandRepository.saveAndFlush(fordBrandEntity);
         ModelEntity fiesta = new ModelEntity();
         fiesta.setName("Fiesta");
-        fiesta.setCategory(Category.Car);
+        fiesta.setCategory(Category.CAR);
         fiesta.setImageUrl("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
         fiesta.setStartYear(1976);
         fiesta.setBrand(hondaBrandEntity);
@@ -76,7 +76,7 @@ public class DbInit implements CommandLineRunner {
         modelRepository.saveAndFlush(fiesta);
         ModelEntity escort = new ModelEntity();
         escort.setName("Escort");
-        escort.setCategory(Category.Car);
+        escort.setCategory(Category.CAR);
         escort.setCreated(Instant.now());
         escort.setModified(Instant.now());
         escort.setImageUrl("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");

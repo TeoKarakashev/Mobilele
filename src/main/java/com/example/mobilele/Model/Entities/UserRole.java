@@ -25,7 +25,6 @@ public class UserRole {
     }
 
 
-
     public Role getRole() {
         return role;
     }

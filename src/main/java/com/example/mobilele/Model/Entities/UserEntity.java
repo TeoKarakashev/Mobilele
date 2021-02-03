@@ -29,21 +29,19 @@ public class UserEntity extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-  //  @OneToMany(mappedBy = "userEntity")
-  //  private Set<OfferEntity> offerEntities;
+    //  @OneToMany(mappedBy = "userEntity")
+    //  private Set<OfferEntity> offerEntities;
 
     public UserEntity() {
     }
 
-  // public Set<OfferEntity> getOffers() {
+    // public Set<OfferEntity> getOffers() {
     //    return offerEntities;
-  //  }
+    //  }
 
-   // public void setOffers(Set<OfferEntity> offerEntities) {
+    // public void setOffers(Set<OfferEntity> offerEntities) {
     //    this.offerEntities = offerEntities;
-   // }
-
-
+    // }
 
 
     public String getUsername() {

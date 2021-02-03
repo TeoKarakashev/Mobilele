@@ -10,7 +10,7 @@ public class BrandViewModel {
     public BrandViewModel() {
     }
 
-    public BrandViewModel addModel(ModelViewModel model){
+    public BrandViewModel addModel(ModelViewModel model) {
         this.models.add(model);
         return this;
     }

@@ -1,7 +1,6 @@
 package com.example.mobilele.Model.Entities;
 
 import com.example.mobilele.Model.Enums.Category;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.Set;
