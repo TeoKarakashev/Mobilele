@@ -3,14 +3,17 @@ package com.example.mobilele;
 import com.example.mobilele.Model.Entities.BrandEntity;
 import com.example.mobilele.Model.Entities.ModelEntity;
 import com.example.mobilele.Model.Entities.OfferEntity;
+import com.example.mobilele.Model.Entities.UserEntity;
 import com.example.mobilele.Model.Enums.Category;
 import com.example.mobilele.Model.Enums.Engine;
 import com.example.mobilele.Model.Enums.Transmission;
 import com.example.mobilele.repositories.BrandRepository;
 import com.example.mobilele.repositories.ModelRepository;
 import com.example.mobilele.repositories.OfferRepository;
+import com.example.mobilele.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -22,19 +25,25 @@ public class DbInit implements CommandLineRunner {
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
     private final OfferRepository offerRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Autowired
-    public DbInit(ModelRepository modelRepository, BrandRepository brandRepository, OfferRepository offerRepository) {
+    public DbInit(ModelRepository modelRepository, BrandRepository brandRepository,
+                  OfferRepository offerRepository, PasswordEncoder passwordEncoder,
+                  UserRepository userRepository) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
         this.offerRepository = offerRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         //initializeModelsAndBrands();
         // initailzeOffer(modelRepository.getOne(1L));
-
+            //initAdmin();
     }
 
     private void initailzeOffer(ModelEntity modelEntity) {
@@ -50,6 +59,18 @@ public class DbInit implements CommandLineRunner {
         fiestaOffer.setTransmission(Transmission.AUTOMATIC);
         fiestaOffer.setModel(modelEntity);
         offerRepository.saveAndFlush(fiestaOffer);
+    }
+
+    private void initAdmin(){
+        UserEntity admin = new UserEntity();
+        admin.setFirstName("Valio");
+        admin.setLastName("Jojo");
+        admin.setUsername("Valjo");
+        admin.setPassword(passwordEncoder.encode("password"));
+        admin.setCreated(Instant.now());
+        admin.setModified(Instant.now());
+
+        userRepository.saveAndFlush(admin);
     }
 
 
