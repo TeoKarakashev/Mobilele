@@ -6,14 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_roles")
-public class UserRole {
+public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public UserRole() {
+    public UserRoleEntity() {
     }
 
     public long getId() {

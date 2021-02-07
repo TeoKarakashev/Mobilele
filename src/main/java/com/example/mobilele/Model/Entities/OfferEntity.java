@@ -24,9 +24,8 @@ public class OfferEntity extends BaseEntity {
     private Transmission transmission;
     private int year;
 
-    // @ManyToOne
-    // @JoinColumn(name = "seller_id")
-    // private UserEntity userEntity;
+    @ManyToOne
+    private UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "model_id")
     private ModelEntity modelEntity;
@@ -34,14 +33,21 @@ public class OfferEntity extends BaseEntity {
     public OfferEntity() {
     }
 
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
-    //  public UserEntity getUser() {
-    //  return userEntity;
-    //  }
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 
-    // public void setUser(UserEntity userEntity) {
-    //    this.userEntity = userEntity;
-    //  }
+    public ModelEntity getModelEntity() {
+        return modelEntity;
+    }
+
+    public void setModelEntity(ModelEntity modelEntity) {
+        this.modelEntity = modelEntity;
+    }
 
     public ModelEntity getModel() {
         return modelEntity;

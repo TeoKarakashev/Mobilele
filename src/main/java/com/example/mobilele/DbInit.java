@@ -1,16 +1,11 @@
 package com.example.mobilele;
 
-import com.example.mobilele.Model.Entities.BrandEntity;
-import com.example.mobilele.Model.Entities.ModelEntity;
-import com.example.mobilele.Model.Entities.OfferEntity;
-import com.example.mobilele.Model.Entities.UserEntity;
+import com.example.mobilele.Model.Entities.*;
 import com.example.mobilele.Model.Enums.Category;
 import com.example.mobilele.Model.Enums.Engine;
+import com.example.mobilele.Model.Enums.Role;
 import com.example.mobilele.Model.Enums.Transmission;
-import com.example.mobilele.repositories.BrandRepository;
-import com.example.mobilele.repositories.ModelRepository;
-import com.example.mobilele.repositories.OfferRepository;
-import com.example.mobilele.repositories.UserRepository;
+import com.example.mobilele.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Component
 public class DbInit implements CommandLineRunner {
@@ -27,26 +23,30 @@ public class DbInit implements CommandLineRunner {
     private final OfferRepository offerRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Autowired
     public DbInit(ModelRepository modelRepository, BrandRepository brandRepository,
                   OfferRepository offerRepository, PasswordEncoder passwordEncoder,
-                  UserRepository userRepository) {
+                  UserRepository userRepository, UserRoleRepository userRoleRepository) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
         this.offerRepository = offerRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        //initializeModelsAndBrands();
-        // initailzeOffer(modelRepository.getOne(1L));
-            //initAdmin();
+       // intModelsAndBrands();
+       // initOffer(modelRepository.getOne(1L));
+       // initUsers();
     }
 
-    private void initailzeOffer(ModelEntity modelEntity) {
+
+
+    private void initOffer(ModelEntity modelEntity) {
         OfferEntity fiestaOffer = new OfferEntity();
         fiestaOffer.setEngine(Engine.DIESEL);
         fiestaOffer.setCreated(Instant.now());
@@ -61,20 +61,38 @@ public class DbInit implements CommandLineRunner {
         offerRepository.saveAndFlush(fiestaOffer);
     }
 
-    private void initAdmin(){
+    private void initUsers() {
+
+        UserRoleEntity adminRole = new UserRoleEntity();
+        adminRole.setRole(Role.Admin);
+        UserRoleEntity userRole = new UserRoleEntity();
+        userRole.setRole(Role.User);
+        userRoleRepository.saveAll(List.of(adminRole, userRole));
+
+
         UserEntity admin = new UserEntity();
-        admin.setFirstName("Valio");
-        admin.setLastName("Jojo");
-        admin.setUsername("Valjo");
+        admin.setFirstName("Bojo");
+        admin.setLastName("admin");
+        admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("password"));
         admin.setCreated(Instant.now());
         admin.setModified(Instant.now());
+        admin.setUserRoles(List.of(adminRole, userRole));
 
-        userRepository.saveAndFlush(admin);
+        UserEntity user = new UserEntity();
+        user.setFirstName("Valio");
+        user.setLastName("Jojo");
+        user.setUsername("user");
+        user.setPassword(passwordEncoder.encode("password"));
+        user.setCreated(Instant.now());
+        user.setModified(Instant.now());
+        user.setUserRoles(List.of(userRole));
+        userRepository.saveAll(List.of(admin, user));
+
     }
 
 
-    private void initializeModelsAndBrands() {
+    private void intModelsAndBrands() {
         BrandEntity fordBrandEntity = new BrandEntity();
         fordBrandEntity.setName("Ford");
         fordBrandEntity.setCreated(Instant.now());

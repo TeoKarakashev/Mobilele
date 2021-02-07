@@ -3,7 +3,6 @@ package com.example.mobilele.Model.Entities;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -23,26 +22,23 @@ public class UserEntity extends BaseEntity {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @ManyToMany
-    private List<UserRole> role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserRoleEntity> userRoles;
 
     @Column(name = "image_url")
     private String imageUrl;
 
-    //  @OneToMany(mappedBy = "userEntity")
-    //  private Set<OfferEntity> offerEntities;
 
     public UserEntity() {
     }
 
-    // public Set<OfferEntity> getOffers() {
-    //    return offerEntities;
-    //  }
+    public List<UserRoleEntity> getUserRoles() {
+        return userRoles;
+    }
 
-    // public void setOffers(Set<OfferEntity> offerEntities) {
-    //    this.offerEntities = offerEntities;
-    // }
-
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
+        this.userRoles = userRoles;
+    }
 
     public String getUsername() {
         return username;
