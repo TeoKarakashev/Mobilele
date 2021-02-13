@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -45,12 +44,10 @@ public class DbInit implements CommandLineRunner {
     }
 
 
-
     private void initOffer(ModelEntity modelEntity) {
         OfferEntity fiestaOffer = new OfferEntity();
         fiestaOffer.setEngine(Engine.DIESEL);
-        fiestaOffer.setCreated(Instant.now());
-        fiestaOffer.setModified(Instant.now());
+
         fiestaOffer.setImageUrl("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
         fiestaOffer.setMileage(80000);
         fiestaOffer.setPrice(BigDecimal.valueOf(10000));
@@ -58,7 +55,7 @@ public class DbInit implements CommandLineRunner {
         fiestaOffer.setDescription("Garaj e karana ot nemsko babe, koeto e staro.");
         fiestaOffer.setTransmission(Transmission.AUTOMATIC);
         fiestaOffer.setModel(modelEntity);
-        offerRepository.saveAndFlush(fiestaOffer);
+        offerRepository.save(fiestaOffer);
     }
 
     private void initUsers() {
@@ -75,8 +72,7 @@ public class DbInit implements CommandLineRunner {
         admin.setLastName("admin");
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("password"));
-        admin.setCreated(Instant.now());
-        admin.setModified(Instant.now());
+
         admin.setUserRoles(List.of(adminRole, userRole));
 
         UserEntity user = new UserEntity();
@@ -84,8 +80,7 @@ public class DbInit implements CommandLineRunner {
         user.setLastName("Jojo");
         user.setUsername("user");
         user.setPassword(passwordEncoder.encode("password"));
-        user.setCreated(Instant.now());
-        user.setModified(Instant.now());
+
         user.setUserRoles(List.of(userRole));
         userRepository.saveAll(List.of(admin, user));
 
@@ -95,34 +90,51 @@ public class DbInit implements CommandLineRunner {
     private void intModelsAndBrands() {
         BrandEntity fordBrandEntity = new BrandEntity();
         fordBrandEntity.setName("Ford");
-        fordBrandEntity.setCreated(Instant.now());
-        fordBrandEntity.setModified(Instant.now());
-        BrandEntity hondaBrandEntity = new BrandEntity();
-        hondaBrandEntity.setName("Honda");
-        hondaBrandEntity.setCreated(Instant.now());
-        hondaBrandEntity.setModified(Instant.now());
-        brandRepository.saveAndFlush(hondaBrandEntity);
-        brandRepository.saveAndFlush(fordBrandEntity);
+        brandRepository.save(fordBrandEntity);
+
+        BrandEntity audiBrandEntity = new BrandEntity();
+        audiBrandEntity.setName("Audi");
+        brandRepository.save(audiBrandEntity);
+
+        BrandEntity bmwBrandEntity = new BrandEntity();
+        bmwBrandEntity.setName("BMW");
+        brandRepository.saveAndFlush(bmwBrandEntity);
+
+
+
         ModelEntity fiesta = new ModelEntity();
         fiesta.setName("Fiesta");
         fiesta.setCategory(Category.Car);
-        fiesta.setImageUrl("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
+        fiesta.setImageUrl("https://www.carmag.co.za/upload/articles/2020/06/fiesta-48v.jpg");
         fiesta.setStartYear(1976);
-        fiesta.setBrand(hondaBrandEntity);
-        fiesta.setCreated(Instant.now());
-        fiesta.setBrand(hondaBrandEntity);
-        fiesta.setModified(Instant.now());
-        modelRepository.saveAndFlush(fiesta);
-        ModelEntity escort = new ModelEntity();
-        escort.setName("Escort");
-        escort.setCategory(Category.Car);
-        escort.setCreated(Instant.now());
-        escort.setModified(Instant.now());
-        escort.setImageUrl("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
-        escort.setStartYear(1968);
-        escort.setEndYear(2002);
-        escort.setBrand(fordBrandEntity);
-        modelRepository.saveAndFlush(escort);
+        fiesta.setBrand(fordBrandEntity);
+        modelRepository.save(fiesta);
+
+        ModelEntity bmw6Series = new ModelEntity();
+        bmw6Series.setName("BMW 6 Series");
+        bmw6Series.setCategory(Category.Car);
+        bmw6Series.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/c/c5/2018_BMW_6er_Gran_Coupe_M_Sport%2C_F06.jpg");
+        bmw6Series.setStartYear(2011);
+        bmw6Series.setEndYear(2018);
+        bmw6Series.setBrand(bmwBrandEntity);
+        modelRepository.save(bmw6Series);
+
+
+        ModelEntity audi = new ModelEntity();
+        audi.setName("A8");
+        audi.setCategory(Category.Car);
+        audi.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Audi_A8L_60_TFSIe_Quattro_1Y7A5436.jpg/800px-Audi_A8L_60_TFSIe_Quattro_1Y7A5436.jpg");
+        audi.setStartYear(1994);
+        audi.setBrand(audiBrandEntity);
+        modelRepository.save(audi);
+
+        ModelEntity mustang = new ModelEntity();
+        mustang.setName("Mustang");
+        mustang.setCategory(Category.Car);
+        mustang.setImageUrl("https://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2020/04/chrome-image-407833.png");
+        mustang.setStartYear(1964);
+        mustang.setBrand(fordBrandEntity);
+        modelRepository.save(mustang);
     }
 
 

@@ -22,6 +22,7 @@ public class OfferEntity extends BaseEntity {
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
+    @Column
     private int year;
 
     @ManyToOne

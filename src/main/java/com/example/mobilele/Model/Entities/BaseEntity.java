@@ -9,7 +9,9 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private Instant created;
+    @Column(nullable = false)
     private Instant modified;
 
     public long getId() {
@@ -20,7 +22,17 @@ public abstract class BaseEntity {
         this.id = id;
     }
 
-    @Column(nullable = false)
+    @PrePersist
+    public void prePersist(){
+        setCreated(Instant.now());
+        setModified(Instant.now());
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        setCreated(Instant.now());
+        setModified(Instant.now());
+    }
     public Instant getCreated() {
         return created;
     }
@@ -29,7 +41,6 @@ public abstract class BaseEntity {
         this.created = created;
     }
 
-    @Column(nullable = false)
     public Instant getModified() {
         return modified;
     }

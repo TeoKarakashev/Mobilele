@@ -32,26 +32,32 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<BrandViewModel> getAllBrands() {
-        List<ModelEntity> allModelEntities = modelRepository.findAll();
-        List<BrandViewModel> brandViewModels = new ArrayList<>();
-        allModelEntities.forEach(me -> {
+        List<BrandViewModel> result = new ArrayList<>();// <- final result here
+
+        List<ModelEntity> allModels =
+                modelRepository.findAll();
+
+        allModels.forEach(me -> {
+            // example: fiesta -> ford
             BrandEntity brandEntity = me.getBrand();
-            Optional<BrandViewModel> brandViewModelOpt = findByName(brandViewModels, brandEntity.getName());
-            if (!brandViewModelOpt.isPresent()) {
+
+            Optional<BrandViewModel> brandViewModelOpt = findByName(result,
+                    brandEntity.getName());
+            if (brandViewModelOpt.isEmpty()) {
+                // not yet in the result, we will create a new model
                 BrandViewModel newBrandViewModel = new BrandViewModel();
                 modelMapper.map(brandEntity, newBrandViewModel);
-                brandViewModels.add(newBrandViewModel);
+                result.add(newBrandViewModel);
                 brandViewModelOpt = Optional.of(newBrandViewModel);
             }
 
             ModelViewModel newModelViewModel = new ModelViewModel();
             modelMapper.map(me, newModelViewModel);
-            brandViewModelOpt.get().addModel(newModelViewModel);
         });
 
-
-        return brandViewModels;
+        return result;
     }
+
 
 
     private static Optional<BrandViewModel> findByName(List<BrandViewModel> allModels, String name) {
